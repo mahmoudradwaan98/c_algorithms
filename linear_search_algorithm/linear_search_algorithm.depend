@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1702227424 source:c:\users\mahmoud\documents\c_programming_abdo\linear_search_algorithm\main.c
+	<stdio.h>
+	<stdlib.h>
+
