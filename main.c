@@ -1,90 +1,102 @@
+/**
+ ******************************************************************************
+ * @file           : main.c
+ * @author         : Mahmoud Radwan
+ * @brief          : Contains the functionality of Bubble sorting algorithm
+ ******************************************************************************
+ */
+
+/* ********************** Includes Section Start ********************** */
 #include <stdio.h>
 #include <stdlib.h>
+/* ********************** Includes Section End   ********************** */
 
-#define MAX_SIZE 10
+/* ********************** Macro Section Start ************************* */
+typedef unsigned char u8;
+typedef unsigned int u16;
+#define max_size 5
+/* ********************** Macro Section End   ************************* */
 
-typedef unsigned int u32;
-typedef signed int   s32;
+/* ********************** Global Variables Section Start ************** */
 
-s32 Binary_search_algorithm(s32 value, s32 arr[] , s32 arr_length);
-s32 Binary_search_algorithm_recursive(s32 REQ_value, s32 arr[] , s32 S_index , s32 E_index);
+/* ********************** Global Variables  Section End   ************* */
+
+/* ********************** Global Declaration Section Start ************* */
+
+/* ********************** Global Declaration  Section End   ************ */
+
+/* ********************** Sub-Program Declaration Section Start ******* */
+void swap_func( u16 *P_num1, u16 *P_num2);
+void Bubble_sort(u16 arr[] , u16 arr_size);
+void print_array(u16 arr[] , u16 arr_size);
+/* ********************** Sub-Program Declaration Section End ******* */
+
+/* ********************** Sub-Program Section Start ************* */
+void swap_func( u16 *P_num1, u16 *P_num2){
+
+    u16 temp = *P_num1;
+    *P_num1  = *P_num2;
+    *P_num2  = temp;
+
+}
+
+void Bubble_sort(u16 arr[] , u16 arr_size){
+
+    u16 i,j;
+    u8 sort_flag = 0;
+    for(i = 0 ; i < arr_size -1;i++){
+        for(j=0;j < arr_size -1 - i ;j++){
+            if(arr[j]>arr[j+1]){
+                swap_func(&arr[j] , &arr[j+1]);
+                sort_flag = 1;
+            }
+             print_array(arr , arr_size);
+        }
+
+        if(sort_flag == 0){
+            return;
+        }
+       // print_array(arr , arr_size);
+    }
+
+}
+
+void print_array(u16 arr[] , u16 arr_size){
+
+    u16 counter = 0;
+
+    for(counter = 0;counter < arr_size;counter++){
+        printf("%i\t",arr[counter]);
+    }
+
+    printf("\n");
+}
+/* ********************** Sub-Program Section End ************* */
+
+/**
+ ******************************************************************************
+ User          Date                 Brief
+ ******************************************************************************
+Mahmoud Radwan  05Dec2023            Task-1 Bubble sort implementation
+*/
+
 
 int main()
 {
+    u16 num1 = 5 ;
+    u16 num2 = 14;
 
-    s32 value , result;
+    swap_func(&num1 , &num2);
+    printf("after swapping num1 = %d , num2 = %d\n",num1,num2);
+    printf("after swapping num1 = %i , num2 = %i\n",num1,num2);
 
-    s32 ARR[MAX_SIZE] = {11,22,33,44,55,66,77,88,99,100};
+    u16 data[max_size] = {8,5,7,3,2};
+    //u16 data1[max_size] = {2,3,5,7,8};
 
-    printf("Enter search value:\n");
-    scanf("%d",&value);
+    Bubble_sort(data , max_size);
 
-    result = Binary_search_algorithm(value , ARR , MAX_SIZE);
+    //Bubble_sort(data1 , max_size);
 
-    if(result == -1){
-        printf("Value is not found\n");
-    }
-    else{
-        printf("value %d is found in index %d\n",value,result);
-    }
-
-
-    s32 test ;
-
-    test = Binary_search_algorithm_recursive(22,ARR,0,MAX_SIZE-1); //1
-    printf("value %d is found in index %d\n",22,test);
-    test = Binary_search_algorithm_recursive(77,ARR,0,MAX_SIZE-1); // 6
-    printf("value %d is found in index %d\n",77,test);
-    test = Binary_search_algorithm_recursive(105,ARR,0,MAX_SIZE-1); // -1
-    printf("value %d is found in index %d\n",105,test);
 
     return 0;
-}
-
-s32 Binary_search_algorithm(s32 value, s32 arr[] , s32 arr_length){
-
-    s32 start_index = 0;
-    s32 end_index  = arr_length -1;
-    s32 mid_index = 0;
-
-    while(start_index <= end_index){
-
-            mid_index = start_index + ( (end_index -start_index) / 2);
-            if(value == arr[mid_index]){
-                return mid_index;
-            }
-            else if(value > arr[mid_index]){
-                start_index = mid_index +1;
-            }
-            else if(value < arr[mid_index]){
-                end_index = mid_index -1;
-            }
-
-    }
-    return -1;
-}
-
-s32 Binary_search_algorithm_recursive(s32 REQ_value, s32 arr[] , s32 S_index , s32 E_index){
-
-    s32 M_index = 0;
-
-    while(S_index <= E_index){
-
-            M_index = S_index + ( (E_index -S_index) / 2);
-
-            if(REQ_value == arr[M_index]){
-                return M_index;
-            }
-            else if(REQ_value > arr[M_index]){
-
-                return Binary_search_algorithm_recursive(REQ_value,arr,M_index+1,E_index);
-            }
-            else if(REQ_value < arr[M_index]){
-
-                return Binary_search_algorithm_recursive(REQ_value,arr,S_index,M_index-1);
-
-            }
-
-    }
-    return -1;
 }
